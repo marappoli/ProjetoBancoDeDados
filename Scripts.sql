@@ -87,6 +87,15 @@ CREATE TABLE advisor (
     i_ID INT
 );
 
+--armazena os dados agregados para cada departamento
+CREATE TABLE department_summary (
+    dept_name TEXT PRIMARY KEY,
+    budget FLOAT,
+    total_students INT,
+    total_salary FLOAT
+);
+
+
 --inserindo na tabela department
 INSERT INTO department (dept_name, building, budget) VALUES ('CS', 'Turing Hall', 1000000.0);
 INSERT INTO department (dept_name, building, budget) VALUES ('Math', 'Einstein Building', 800000.0);
@@ -123,3 +132,10 @@ INSERT INTO takes (ID, course_id, sec_id, semester, year, grade) VALUES (202, 'M
 --inserindo na tabela advisor
 INSERT INTO advisor (s_ID, i_ID) VALUES (201, 101);
 INSERT INTO advisor (s_ID, i_ID) VALUES (202, 102);
+
+--inserindo na tabela department_summary
+INSERT INTO department_summary (dept_name, budget, total_students, total_salary)
+VALUES ('CS', 1000000.0, 500, 800000.0);
+INSERT INTO department_summary (dept_name, budget, total_students, total_salary)
+VALUES ('Math', 800000.0, 300, 750000.0);
+
