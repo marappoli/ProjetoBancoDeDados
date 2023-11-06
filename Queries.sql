@@ -23,4 +23,7 @@ FROM department d
 JOIN student s ON d.dept_name = s.dept_name
 JOIN instructor i ON d.dept_name = i.dept_name
 GROUP BY dept_name;
+SELECT dept_name, budget, total_students, total_salary
+FROM department_summary;
+
 
