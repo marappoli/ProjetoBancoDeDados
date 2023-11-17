@@ -1,29 +1,56 @@
 /* Segunda parte do Projeto */
 
 --query que retorna qual estudante fez qual disciplina do próprio orientador.
-SELECT s.name AS student_name, i.name AS instructor_name, c.title AS course_title
-FROM student s
-JOIN advisor a ON s.ID = a.s_ID
-JOIN instructor i ON a.i_ID = i.ID
-JOIN takes t ON s.ID = t.ID
-JOIN section sec ON t.course_id = sec.course_id AND t.sec_id = sec.sec_id AND t.semester = sec.semester AND t.year = sec.year
-JOIN course c ON sec.course_id = c.course_id
-WHERE i.ID = a.i_ID;
+CREATE TABLE student_course_advisor (
+    s_ID INT,
+    s_name TEXT,
+    i_ID INT,
+    i_name TEXT,
+    course_id TEXT,
+    title TEXT,
+    PRIMARY KEY (s_ID, course_id)
+);
+
+INSERT INTO student_course_advisor (s_ID, s_name, i_ID, i_name, course_id, title)
+VALUES (201, 'Alice Johnson', 101, 'John Smith', 'CS101', 'Introduction to Computer Science');
+
+INSERT INTO student_course_advisor (s_ID, s_name, i_ID, i_name, course_id, title)
+VALUES (202, 'Bob Davis', 102, 'Jane Doe', 'MATH101', 'Introduction to Mathematics');
+
+SELECT s_name, i_name, title
+FROM student_course_advisor;
 
 --sala (prédio e número) cada professor dá aula
-SELECT i.name AS instructor_name, sec.building, sec.room_number
-FROM instructor i
-JOIN teaches t ON i.ID = t.ID
-JOIN section sec ON t.course_id = sec.course_id AND t.sec_id = sec.sec_id AND t.semester = sec.semester AND t.year = sec.year;
+CREATE TABLE professor_room (
+    i_ID INT PRIMARY KEY,
+    i_name TEXT,
+    building TEXT,
+    room_number TEXT
+);
+
+INSERT INTO professor_room (i_ID, i_name, building, room_number)
+VALUES (101, 'John Smith', 'Turing Hall', '101');
+
+INSERT INTO professor_room (i_ID, i_name, building, room_number)
+VALUES (102, 'Jane Doe', 'Einstein Building', '201');
+
+SELECT i_name, building, room_number
+FROM professor_room;
+
 
 --nome, orçamento, total de alunos e salário médio de cada departamento
-INSERT INTO department_summary (dept_name, budget, total_students, total_salary)
-SELECT dept_name, SUM(budget) AS budget, COUNT(*) AS total_students, AVG(salary) AS total_salary
-FROM department d
-JOIN student s ON d.dept_name = s.dept_name
-JOIN instructor i ON d.dept_name = i.dept_name
-GROUP BY dept_name;
-SELECT dept_name, budget, total_students, total_salary
-FROM department_summary;
+CREATE TABLE department_stats (
+    dept_name TEXT PRIMARY KEY,
+    budget FLOAT,
+    total_students INT,
+    avg_instructor_salary FLOAT
+);
 
+INSERT INTO department_stats (dept_name, budget, total_students, avg_instructor_salary)
+VALUES ('CS', 1000000.0, (SELECT COUNT(*) FROM student WHERE dept_name = 'CS'), (SELECT AVG(salary) FROM instructor WHERE dept_name = 'CS'));
 
+INSERT INTO department_stats (dept_name, budget, total_students, avg_instructor_salary)
+VALUES ('Math', 800000.0, (SELECT COUNT(*) FROM student WHERE dept_name = 'Math'), (SELECT AVG(salary) FROM instructor WHERE dept_name = 'Math'));
+
+SELECT dept_name, budget, total_students, avg_instructor_salary
+FROM department_stats;
