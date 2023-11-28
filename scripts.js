@@ -1,3 +1,7 @@
+//Nome: Amanda Pollo Sarlo
+//RA: 22.121.047-9
+//Nome: Marcella Rappoli Bedinelli
+//RA: 22.121.076-8
 use('mongodbVSCodePlaygroundDB');
 
 db.getCollection('classroom').insertOne(
