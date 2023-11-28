@@ -1,5 +1,10 @@
 /* Segunda parte do Projeto */
 
+//Nome: Amanda Pollo Sarlo
+//RA: 22.121.047-9
+//Nome: Marcella Rappoli Bedinelli
+//RA: 22.121.076-8
+
 //query que retorna qual estudante fez qual disciplina do próprio orientador.
 db.student.aggregate([
    {
