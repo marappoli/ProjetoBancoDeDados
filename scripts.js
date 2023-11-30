@@ -2,6 +2,9 @@
 //RA: 22.121.047-9
 //Nome: Marcella Rappoli Bedinelli
 //RA: 22.121.076-8
+//Nome: Lucas Forge
+//RA: 22.121.081-8
+
 use('mongodbVSCodePlaygroundDB');
 
 db.getCollection('classroom').insertOne(
